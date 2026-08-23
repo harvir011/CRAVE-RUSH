@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Secure Checkout — CraveRush Food Delivery</title>
-  <meta name="description" content="Confirm your delivery address, choose a delivery speed and payment method to complete your CraveRush order.">
-
+  <title>Secure Checkout — CraveRush</title>
+  <meta name="description" content="Complete your CraveRush food order. Fast, fresh and secure checkout.">
+  
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,258 +26,361 @@
       </div>
       <div class="loader-word">CraveRush<span class="dot">.</span></div>
       <div class="loader-bar"><span></span></div>
-      <p class="loader-caption">Preparing your checkout</p>
+      <p class="loader-caption">Setting up secure checkout</p>
     </div>
   </div>
 
   <!-- NAVIGATION HEADER -->
+  <!-- NAVIGATION HEADER -->
   <header>
     <input type="checkbox" id="menu-toggle" style="display:none;">
     <nav>
+      <!-- Logo -->
       <a href="index.html" class="logo">CraveRush<span class="dot">.</span></a>
-
-      <div class="location-picker" onclick="openModal('location-modal')">
+      
+      <!-- Location Picker (Desktop Only) -->
+      <div class="location-picker desktop-only" onclick="openModal('location-modal')">
         <i class="fa-solid fa-location-dot"></i>
-        <span id="current-location-text">Sector 17, Chandigarh</span>
+        <span class="current-location-text">Sector 17, Chandigarh</span>
         <i class="fa-solid fa-chevron-down" style="font-size:10px; color:var(--muted-4);"></i>
       </div>
 
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="restaurants.html">Restaurants</a></li>
-        <li><a href="menu.html">Food Items</a></li>
-        <li><a href="orders.html">Orders</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="reviews.html">Reviews</a></li>
-      </ul>
+      <!-- Backdrop for Mobile Drawer -->
+      <label for="menu-toggle" class="mobile-drawer-backdrop" aria-hidden="true"></label>
 
+      <!-- Navigation links & Mobile Drawer -->
+      <div class="nav-links" id="mobile-menu">
+        <!-- Mobile drawer title and close button -->
+        <div class="drawer-header mobile-only">
+          <span class="drawer-title">Navigation</span>
+          <label for="menu-toggle" class="drawer-close" aria-label="Close navigation menu">
+            <i class="fa-solid fa-xmark"></i>
+          </label>
+        </div>
+
+        <!-- Mobile-only Location picker inside drawer -->
+        <div class="mobile-location-row mobile-only" onclick="openModal('location-modal')">
+          <span class="section-label">Delivery Location</span>
+          <div class="location-picker-mobile">
+            <i class="fa-solid fa-location-dot"></i>
+            <span class="current-location-text">Sector 17, Chandigarh</span>
+            <i class="fa-solid fa-chevron-down" style="font-size:10px; color:var(--muted-4);"></i>
+          </div>
+        </div>
+
+        <!-- Links List -->
+        <span class="section-label mobile-only">Menu</span>
+        <ul class="nav-links-list">
+          <li><a href="index.html"><i class="fa-solid fa-house mobile-only"></i> Home</a></li>
+          <li><a href="menu.html"><i class="fa-solid fa-utensils"></i> Restaurants &amp; Menu</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+        </ul>
+
+        <!-- Mobile-only preferences toggles -->
+        <div class="mobile-preferences mobile-only">
+          <span class="section-label">Preferences</span>
+          
+          <!-- Veg Switch -->
+          <div class="pref-row">
+            <span>Veg Only</span>
+            <div class="veg-switch" title="Show veg only">
+              <input type="checkbox" id="veg-only-toggle-mobile" class="veg-switch-input" onchange="toggleVegOnly(this.checked)">
+              <label for="veg-only-toggle-mobile" class="veg-switch-track" aria-label="Toggle veg only">
+                <span class="veg-switch-icon veg-switch-icon-all">🍽️</span>
+                <span class="veg-switch-icon veg-switch-icon-veg">🟢</span>
+                <span class="veg-switch-knob"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Theme Toggle -->
+          <div class="pref-row">
+            <span>Dark Mode</span>
+            <div class="theme-toggle-wrap">
+              <input type="checkbox" id="theme-toggle-mobile" class="theme-toggle-input">
+              <label for="theme-toggle-mobile" class="theme-toggle" aria-label="Toggle dark mode">
+                <i class="fa-solid fa-sun theme-icon theme-icon-sun"></i>
+                <i class="fa-solid fa-moon theme-icon theme-icon-moon"></i>
+                <span class="theme-toggle-knob"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Profile Section -->
+        <div class="mobile-profile-section mobile-only" id="mobile-profile-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Nav CTA & Burger -->
       <div class="nav-cta">
-        <input type="checkbox" id="theme-toggle" class="theme-toggle-input">
-        <label for="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-          <i class="fa-solid fa-sun theme-icon theme-icon-sun"></i>
-          <i class="fa-solid fa-moon theme-icon theme-icon-moon"></i>
-          <span class="theme-toggle-knob"></span>
-        </label>
+        <!-- Desktop CTA elements -->
+        <div class="desktop-cta-items desktop-only">
+          <input type="checkbox" id="theme-toggle" class="theme-toggle-input">
+          <label for="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+            <i class="fa-solid fa-sun theme-icon theme-icon-sun"></i>
+            <i class="fa-solid fa-moon theme-icon theme-icon-moon"></i>
+            <span class="theme-toggle-knob"></span>
+          </label>
 
-        <span id="cart-badge" class="cart-count-pill" aria-label="Items in your bag">0</span>
+          <div id="user-profile-container">
+            <!-- Populated by JS -->
+          </div>
 
-        <a href="menu.html" class="btn btn-solid btn-sm">Add Items</a>
+          <a href="menu.html" class="btn btn-ghost btn-sm">Add Items</a>
+        </div>
 
-        <label for="menu-toggle" class="burger" aria-label="Open navigation menu">
+        <!-- Hamburger Toggle -->
+        <label for="menu-toggle" class="burger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
           <i class="fa-solid fa-bars"></i>
         </label>
       </div>
     </nav>
   </header>
 
-  <!-- CHECKOUT CONTENT -->
-  <form id="checkout-form" onsubmit="handlePlaceOrder(event)">
-    <div class="checkout-wrap">
+  <!-- MAIN CHECKOUT SECTION -->
+  <main class="wrap checkout-page-container">
+    
+    <!-- Empty Cart State -->
+    <div id="empty-checkout" class="empty-checkout-state" style="display:none;">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <h2>Your food bag is empty</h2>
+      <p>Before checking out, you must add some delicious items from our menu.</p>
+      <a href="menu.html" class="btn btn-solid"><i class="fa-solid fa-utensils"></i> Browse Menu</a>
+    </div>
 
-      <div class="checkout-header-bar">
-        <p class="eyebrow">Almost there</p>
-        <h1>Secure Checkout</h1>
+    <!-- Active Checkout Grid -->
+    <div id="active-checkout" class="checkout-grid">
+      
+      <!-- Checkout Form (Left Column) -->
+      <div id="checkout-form-container">
+        <form id="checkout-form" novalidate>
+          
+          <!-- 1. Delivery Address Card -->
+          <div class="checkout-card">
+            <h3><i class="fa-solid fa-map-location-dot"></i> 1. Delivery Address</h3>
+            
+            <div class="checkout-row">
+              <div class="form-group">
+                <label for="address-name">Full Name *</label>
+                <input type="text" id="address-name" class="form-control" placeholder="e.g. Michelle Sharma" required>
+                <span class="error-msg" id="err-address-name">Name is required.</span>
+              </div>
+              <div class="form-group">
+                <label for="address-phone">Mobile Number *</label>
+                <input type="tel" id="address-phone" class="form-control" placeholder="e.g. 9876543210" pattern="^[6-9]\d{9}$" required>
+                <span class="error-msg" id="err-address-phone">Please enter a valid 10-digit mobile number.</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="address-flat">House / Flat / Building *</label>
+              <input type="text" id="address-flat" class="form-control" placeholder="e.g. Flat 402, Block B, Silver Crest" required>
+              <span class="error-msg" id="err-address-flat">Address detail is required.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="address-street">Street / Area *</label>
+              <input type="text" id="address-street" class="form-control" placeholder="e.g. Sector 17-C, Near Main Market" required>
+              <span class="error-msg" id="err-address-street">Street details are required.</span>
+            </div>
+
+            <div class="checkout-row">
+              <div class="form-group">
+                <label for="address-landmark">Landmark (Optional)</label>
+                <input type="text" id="address-landmark" class="form-control" placeholder="e.g. Opposite State Bank">
+              </div>
+              <div class="form-group">
+                <label for="address-city">City *</label>
+                <input type="text" id="address-city" class="form-control" placeholder="Chandigarh" required>
+                <span class="error-msg" id="err-address-city">City is required.</span>
+              </div>
+            </div>
+
+            <div class="checkout-row">
+              <div class="form-group">
+                <label for="address-state">State *</label>
+                <input type="text" id="address-state" class="form-control" placeholder="Punjab" required>
+                <span class="error-msg" id="err-address-state">State is required.</span>
+              </div>
+              <div class="form-group">
+                <label for="address-pincode">Pincode *</label>
+                <input type="text" id="address-pincode" class="form-control" placeholder="e.g. 160017" pattern="^\d{6}$" required>
+                <span class="error-msg" id="err-address-pincode">Please enter a valid 6-digit pincode.</span>
+              </div>
+            </div>
+
+            <label class="checkbox-label">
+              <input type="checkbox" id="save-address-checkbox" checked>
+              <span>Save this address for future orders</span>
+            </label>
+          </div>
+
+          <!-- 2. Delivery Options Card -->
+          <div class="checkout-card">
+            <h3><i class="fa-solid fa-truck-ramp-box"></i> 2. Delivery Speed</h3>
+            
+            <div class="options-grid">
+              
+              <label class="option-label active" id="label-del-standard">
+                <input type="radio" name="delivery-speed" id="del-standard" value="standard" checked>
+                <span class="option-details">
+                  <span class="option-title">Standard Delivery</span>
+                  <span class="option-desc">Estimated Delivery: <strong id="est-standard-time">25-35 mins</strong></span>
+                  <span class="option-price" id="price-standard-text">₹29</span>
+                </span>
+              </label>
+
+              <label class="option-label" id="label-del-express">
+                <input type="radio" name="delivery-speed" id="del-express" value="express">
+                <span class="option-details">
+                  <span class="option-title">Express Delivery (20-Min Guarantee)</span>
+                  <span class="option-desc">Estimated Delivery: <strong id="est-express-time">15-20 mins</strong></span>
+                  <span class="option-price" id="price-express-text">₹69</span>
+                </span>
+              </label>
+
+            </div>
+          </div>
+
+          <!-- 3. Payment Method Card -->
+          <div class="checkout-card">
+            <h3><i class="fa-solid fa-credit-card"></i> 3. Payment Method</h3>
+            
+            <div class="options-grid" style="margin-bottom: 20px;">
+              
+              <label class="option-label active" id="label-pay-cod">
+                <input type="radio" name="payment-method" id="pay-cod" value="cod" checked>
+                <span class="option-details">
+                  <span class="option-title"><i class="fa-solid fa-hand-holding-dollar"></i> Cash on Delivery</span>
+                  <span class="option-desc">Pay in cash or scan QR code on delivery</span>
+                </span>
+              </label>
+
+              <label class="option-label" id="label-pay-upi">
+                <input type="radio" name="payment-method" id="pay-upi" value="upi">
+                <span class="option-details">
+                  <span class="option-title"><i class="fa-solid fa-mobile-screen-button"></i> UPI / Net Banking</span>
+                  <span class="option-desc">Pay instantly using GPay, PhonePe, or BHIM</span>
+                </span>
+              </label>
+
+              <label class="option-label" id="label-pay-card" style="grid-column: 1 / -1;">
+                <input type="radio" name="payment-method" id="pay-card" value="card">
+                <span class="option-details">
+                  <span class="option-title"><i class="fa-regular fa-credit-card"></i> Credit / Debit Card</span>
+                  <span class="option-desc">Visa, Mastercard, RuPay & Amex accepted</span>
+                </span>
+              </label>
+
+            </div>
+
+            <!-- UPI Section -->
+            <div id="fields-upi" class="payment-fields">
+              <div class="form-group" style="margin-bottom:0;">
+                <label for="upi-id">UPI ID (VPA) *</label>
+                <input type="text" id="upi-id" class="form-control" placeholder="username@upi or mobile@paytm">
+                <span class="error-msg" id="err-upi-id">Please enter a valid UPI ID (e.g. name@bank).</span>
+                <p style="font-size:12px; color:var(--muted-3); margin-top:8px;"><i class="fa-solid fa-shield-halved"></i> Simulated securely. Do not enter any pin.</p>
+              </div>
+            </div>
+
+            <!-- Card Section -->
+            <div id="fields-card" class="payment-fields">
+              <div class="form-group">
+                <label for="card-number">Card Number *</label>
+                <input type="text" id="card-number" class="form-control" placeholder="1234 5678 1234 5678" maxlength="19">
+                <span class="error-msg" id="err-card-number">Please enter a valid 16-digit card number.</span>
+              </div>
+              <div class="form-group">
+                <label for="card-name">Cardholder Name *</label>
+                <input type="text" id="card-name" class="form-control" placeholder="Name as printed on card">
+                <span class="error-msg" id="err-card-name">Cardholder name is required.</span>
+              </div>
+              <div class="checkout-row">
+                <div class="form-group">
+                  <label for="card-expiry">Expiry Date *</label>
+                  <input type="text" id="card-expiry" class="form-control" placeholder="MM/YY" maxlength="5">
+                  <span class="error-msg" id="err-card-expiry">Please enter valid expiry (MM/YY).</span>
+                </div>
+                <div class="form-group">
+                  <label for="card-cvv">CVV *</label>
+                  <input type="password" id="card-cvv" class="form-control" placeholder="•••" maxlength="3">
+                  <span class="error-msg" id="err-card-cvv">Please enter valid CVV.</span>
+                </div>
+              </div>
+              <p style="font-size:12px; color:var(--muted-3); margin-top:4px;"><i class="fa-solid fa-lock"></i> SSL Secured. Simulated safely. Do not enter actual credentials.</p>
+            </div>
+          </div>
+        </form>
       </div>
 
-      <!-- 1. DELIVERY ADDRESS -->
-      <div class="checkout-card">
-        <div class="checkout-card-title"><i class="fa-solid fa-map-location-dot"></i> 1. Delivery Address</div>
+      <!-- Sticky Order Summary (Right Column) -->
+      <div class="sticky-summary">
+        <div class="checkout-card" style="padding: 26px;">
+          <h3 style="font-size: 18px; margin-bottom: 16px;"><i class="fa-solid fa-receipt"></i> Order Summary</h3>
+          
+          <div style="margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line);">
+            <span style="font-size: 12px; font-weight: 700; color: var(--chili); text-transform: uppercase; font-family: var(--font-mono);">Ordering From</span>
+            <h4 id="checkout-restaurant-name" style="font-size: 18px; margin-top: 2px;">Restaurant Name</h4>
+          </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label>Full Name *</label>
-            <input type="text" id="co-fullname" class="form-control" placeholder="e.g. Michelle Sharma" required>
+          <!-- Summary Items Scroll Container -->
+          <div class="checkout-summary-items" id="checkout-summary-items">
+            <!-- Dynamically populated from cart data -->
           </div>
-          <div class="form-group">
-            <label>Mobile Number *</label>
-            <input type="tel" id="co-mobile" class="form-control" placeholder="e.g. 9876543210" maxlength="10" required>
+
+          <!-- Checkout receipt calculations -->
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div class="bill-row">
+              <span>Subtotal</span>
+              <span id="checkout-subtotal">₹0</span>
+            </div>
+            <div class="bill-row" id="checkout-discount-row" style="display: none; color: var(--leaf);">
+              <span>Coupon Discount</span>
+              <span id="checkout-discount">-₹0</span>
+            </div>
+            <div class="bill-row">
+              <span>Delivery Fee</span>
+              <span id="checkout-delivery-fee">₹0</span>
+            </div>
+            <div class="bill-row">
+              <span>Platform Fee</span>
+              <span id="checkout-platform-fee">₹10</span>
+            </div>
+            <div class="bill-row">
+              <span>Taxes & GST (5%)</span>
+              <span id="checkout-tax">₹0</span>
+            </div>
+            <div class="bill-row total" style="margin-top: 12px; padding-top: 12px; font-size: 19px;">
+              <span>Total to Pay</span>
+              <span id="checkout-total" style="color: var(--chili);">₹0</span>
+            </div>
           </div>
+
+          <!-- Place Order Button -->
+          <button type="button" id="place-order-btn" class="btn btn-solid btn-place-order">
+            <span class="spinner"></span>
+            <span id="place-order-text">Place Order &amp; Pay</span>
+          </button>
         </div>
-
-        <div class="form-group">
-          <label>House / Flat / Building *</label>
-          <input type="text" id="co-house" class="form-control" placeholder="e.g. Flat 402, Block B, Silver Crest" required>
-        </div>
-
-        <div class="form-group">
-          <label>Street / Area *</label>
-          <input type="text" id="co-street" class="form-control" placeholder="e.g. Sector 17-C, Near Main Market" required>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label>Landmark (Optional)</label>
-            <input type="text" id="co-landmark" class="form-control" placeholder="e.g. Opposite State Bank">
-          </div>
-          <div class="form-group">
-            <label>City *</label>
-            <input type="text" id="co-city" class="form-control" placeholder="e.g. Chandigarh" required>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label>State *</label>
-            <input type="text" id="co-state" class="form-control" placeholder="e.g. Punjab" required>
-          </div>
-          <div class="form-group">
-            <label>Pincode *</label>
-            <input type="text" id="co-pincode" class="form-control" placeholder="e.g. 160017" maxlength="6" required>
-          </div>
-        </div>
-
-        <label class="checkbox-row">
-          <input type="checkbox" id="co-save-address" checked>
-          Save this address for future orders
-        </label>
-      </div>
-
-      <!-- 2. DELIVERY SPEED -->
-      <div class="checkout-card">
-        <div class="checkout-card-title"><i class="fa-solid fa-truck-fast"></i> 2. Delivery Speed</div>
-
-        <div class="option-grid">
-          <label class="option-card">
-            <input type="radio" name="delivery-speed" value="standard" checked>
-            <span class="option-card-title"><i class="fa-solid fa-truck"></i> Standard Delivery</span>
-            <span class="option-card-sub">Estimated Delivery: 25-35 mins</span>
-            <span class="option-card-price">₹49</span>
-          </label>
-          <label class="option-card">
-            <input type="radio" name="delivery-speed" value="express">
-            <span class="option-card-title"><i class="fa-solid fa-bolt"></i> Express Delivery (20-Min Guarantee)</span>
-            <span class="option-card-sub">Estimated Delivery: 15-20 mins</span>
-            <span class="option-card-price">₹89</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- 3. PAYMENT METHOD -->
-      <div class="checkout-card">
-        <div class="checkout-card-title"><i class="fa-solid fa-credit-card"></i> 3. Payment Method</div>
-
-        <div class="option-grid cols-3">
-          <label class="option-card">
-            <input type="radio" name="payment-method" value="cod" checked>
-            <span class="option-card-title"><i class="fa-solid fa-money-bill-wave"></i> Cash on Delivery</span>
-            <span class="option-card-sub">Pay in cash or scan QR code on delivery</span>
-          </label>
-          <label class="option-card">
-            <input type="radio" name="payment-method" value="upi">
-            <span class="option-card-title"><i class="fa-solid fa-mobile-screen-button"></i> UPI / Net Banking</span>
-            <span class="option-card-sub">Pay instantly using GPay, PhonePe, or BHIM</span>
-          </label>
-          <label class="option-card">
-            <input type="radio" name="payment-method" value="card">
-            <span class="option-card-title"><i class="fa-regular fa-credit-card"></i> Credit / Debit Card</span>
-            <span class="option-card-sub">Visa, Mastercard, RuPay &amp; Amex accepted</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- ORDER SUMMARY -->
-      <div class="checkout-card">
-        <div class="checkout-card-title"><i class="fa-solid fa-receipt"></i> Order Summary</div>
-
-        <span class="checkout-restaurant-tag">Ordering From</span>
-        <h4 class="checkout-restaurant-name" id="checkout-restaurant-name">—</h4>
-
-        <div id="checkout-items"><!-- Rendered dynamically by JS --></div>
-
-        <div style="margin-top:18px;">
-          <div class="bill-row">
-            <span>Subtotal</span>
-            <span id="co-subtotal">₹0</span>
-          </div>
-          <div class="bill-row discount" id="co-discount-row" style="display:none;">
-            <span>Promo Discount</span>
-            <span id="co-discount">-₹0</span>
-          </div>
-          <div class="bill-row">
-            <span>Delivery Fee</span>
-            <span id="co-delivery-fee">₹0</span>
-          </div>
-          <div class="bill-row">
-            <span>Platform Fee</span>
-            <span id="co-platform-fee">₹0</span>
-          </div>
-          <div class="bill-row">
-            <span>Taxes &amp; GST (5%)</span>
-            <span id="co-taxes">₹0</span>
-          </div>
-          <div class="bill-row total">
-            <span>Total to Pay</span>
-            <span id="co-total">₹0</span>
-          </div>
-        </div>
-
-        <button type="submit" class="checkout-btn">
-          <span>Place Order &amp; Pay</span>
-          <i class="fa-solid fa-lock"></i>
-        </button>
       </div>
 
     </div>
-  </form>
+  </main>
 
   <!-- FOOTER -->
   <footer>
     <div class="wrap">
       <div class="footer-bottom">
         <span>© 2026 CraveRush Inc. All rights reserved.</span>
-        <a href="index.html" style="color:var(--chili); font-weight:600;">Back to Homepage →</a>
+        <span>Secure Food Checkout Gateway</span>
       </div>
     </div>
   </footer>
 
-  <!-- CART DRAWER (kept in DOM so shared cart logic in app.js works, not opened on this page) -->
-  <div id="cart-drawer-overlay" class="cart-drawer-overlay"></div>
-  <aside id="cart-drawer" class="cart-drawer">
-    <div class="cart-header">
-      <h3>Your Food Bag</h3>
-      <button id="close-cart-btn" class="close-btn" aria-label="Close cart"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="cart-body">
-      <div id="cart-empty-state" class="cart-empty-state">
-        <i class="fa-solid fa-bag-shopping"></i>
-        <h4>Your bag is empty</h4>
-        <p style="font-size:13.5px; margin-top:6px;">Add delicious dishes from the menu to satisfy your cravings.</p>
-      </div>
-      <div id="cart-items-container"></div>
-      <div class="coupon-box">
-        <input type="text" id="coupon-code" placeholder="ENTER COUPON (CRAVE50)">
-        <button class="coupon-btn" onclick="applyCoupon()">APPLY</button>
-      </div>
-    </div>
-    <div class="cart-footer">
-      <div class="bill-row">
-        <span>Item Subtotal</span>
-        <span id="cart-subtotal">₹0</span>
-      </div>
-      <div class="bill-row discount" id="cart-discount-row" style="display:none;">
-        <span>Promo Discount</span>
-        <span id="cart-discount">-₹0</span>
-      </div>
-      <div class="bill-row">
-        <span>Delivery Fee (20-Min Express)</span>
-        <span>FREE</span>
-      </div>
-      <div class="bill-row">
-        <span>Taxes &amp; Govt Charges (5%)</span>
-        <span>Included</span>
-      </div>
-      <div class="bill-row total">
-        <span>To Pay</span>
-        <span id="cart-total">₹0</span>
-      </div>
-      <button class="checkout-btn" onclick="proceedToCheckout()">
-        <span>Proceed to Checkout</span>
-        <i class="fa-solid fa-arrow-right"></i>
-      </button>
-    </div>
-  </aside>
-
-  <!-- AUTH MODAL -->
+  <!-- AUTH MODAL (SIGN IN / SIGN UP) - Linked to app.js auth system -->
   <div id="auth-modal" class="modal-overlay">
     <div class="modal-content">
       <div class="modal-header">
@@ -284,24 +389,17 @@
       </div>
       <div class="modal-body">
         <div id="account-view" class="account-view" style="display:none;">
-          <div class="account-view-header">
-            <div class="account-avatar-lg" id="account-avatar-lg">U</div>
-            <div>
-              <h4 id="account-name">Account</h4>
-              <p class="account-email" id="account-email">—</p>
-            </div>
+          <div class="account-avatar-lg" id="account-avatar-lg">U</div>
+          <h4 id="account-name">Account</h4>
+          <p class="account-email" id="account-email">—</p>
+          <div class="account-info-row">
+            <span>Full Name</span>
+            <span id="account-info-name">—</span>
           </div>
-
-          <div class="account-tabs">
-            <div class="account-tab active" data-tab="profile" onclick="switchAccountTab('profile')"><i class="fa-regular fa-id-card"></i> Profile</div>
-            <div class="account-tab" data-tab="addresses" onclick="switchAccountTab('addresses')"><i class="fa-solid fa-location-dot"></i> Addresses</div>
-            <div class="account-tab" data-tab="wallet" onclick="switchAccountTab('wallet')"><i class="fa-solid fa-wallet"></i> Wallet</div>
+          <div class="account-info-row">
+            <span>Email</span>
+            <span id="account-info-email">—</span>
           </div>
-
-          <div id="account-tab-profile" class="account-tab-panel"></div>
-          <div id="account-tab-addresses" class="account-tab-panel" style="display:none;"></div>
-          <div id="account-tab-wallet" class="account-tab-panel" style="display:none;"></div>
-
           <button type="button" class="logout-btn" onclick="logoutUser()">
             <i class="fa-solid fa-right-from-bracket"></i> Log Out
           </button>
@@ -312,19 +410,17 @@
             <div class="auth-tab active" onclick="switchAuthTab('signin')">Sign In</div>
             <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
           </div>
-
           <form id="signin-form" onsubmit="handleSignIn(event)">
             <div class="form-group">
               <label>Email Address or Mobile Number</label>
-              <input type="text" id="signin-email" class="form-control" placeholder="name@domain.com or +91..." required>
+              <input type="text" id="signin-email" class="form-control" placeholder="name@domain.com" required>
             </div>
             <div class="form-group">
               <label>Password</label>
               <input type="password" class="form-control" placeholder="••••••••" required>
             </div>
-            <button type="submit" class="btn btn-solid" style="width:100%; margin-top:10px;">Sign In &amp; Order</button>
+            <button type="submit" class="btn btn-solid" style="width:100%; margin-top:10px;">Sign In</button>
           </form>
-
           <form id="signup-form" onsubmit="handleSignUp(event)" style="display:none;">
             <div class="form-group">
               <label>Full Name</label>
@@ -336,11 +432,11 @@
             </div>
             <div class="form-group">
               <label>Mobile Number</label>
-              <input type="tel" id="signup-phone" class="form-control" placeholder="+91 98765 43210" required>
+              <input type="tel" class="form-control" placeholder="+91 98765 43210" required>
             </div>
             <div class="form-group">
               <label>Password</label>
-              <input type="password" class="form-control" placeholder="Create strong password" required>
+              <input type="password" class="form-control" placeholder="Create password" required>
             </div>
             <button type="submit" class="btn btn-solid" style="width:100%; margin-top:10px;">Create Account</button>
           </form>
@@ -362,31 +458,25 @@
           <input type="text" id="custom-location-input" class="form-control" placeholder="Enter landmark, sector, or city...">
         </div>
         <button class="btn btn-solid" style="width:100%; margin-bottom:20px;" onclick="selectCustomLocation()">Set Delivery Location</button>
-
-        <label style="font-size:13px; font-weight:600; color:var(--muted-3); display:block; margin-bottom:10px;">POPULAR CITIES &amp; SECTORS</label>
+        <label style="font-size:13px; font-weight:600; color:var(--muted-3); display:block; margin-bottom:10px;">POPULAR CITIES</label>
         <div style="display:flex; flex-direction:column; gap:8px;">
           <div class="dropdown-item" onclick="setLocation('Sector 17, Chandigarh')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Sector 17, Chandigarh</div>
           <div class="dropdown-item" onclick="setLocation('Connaught Place, New Delhi')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Connaught Place, New Delhi</div>
           <div class="dropdown-item" onclick="setLocation('Bandra West, Mumbai')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Bandra West, Mumbai</div>
           <div class="dropdown-item" onclick="setLocation('Indiranagar, Bengaluru')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Indiranagar, Bengaluru</div>
-          <div class="dropdown-item" onclick="setLocation('Cyber City, Gurugram')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Cyber City, Gurugram</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- LIVE ORDER TRACKING MODAL -->
-  <div id="tracking-modal" class="modal-overlay">
-    <div class="modal-content" id="tracking-modal-content"></div>
-  </div>
-
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toast-container"></div>
 
-  <!-- Main JavaScript File -->
+  <!-- Core App JS (for state, models, headers, auth, theme controls) -->
   <script src="app.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", initCheckoutPage);
-  </script>
+
+  <!-- Checkout Logic Script -->
+  <script src="checkout.js"></script>
+
 </body>
 </html>

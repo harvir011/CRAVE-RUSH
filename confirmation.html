@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en" class="is-loading">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed — CraveRush</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Custom confirmation layout styling aligned with design system variables */
+    .confirmation-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 40px;
+      margin-bottom: 80px;
+      align-items: start;
+    }
+    .success-hero {
+      text-align: center;
+      padding: 40px 24px;
+      background: var(--leaf-light);
+      border: 1px solid var(--leaf);
+      border-radius: var(--radius);
+      color: var(--leaf);
+      margin-bottom: 24px;
+    }
+    .success-hero i {
+      font-size: 56px;
+      margin-bottom: 16px;
+    }
+    .success-hero h1 {
+      color: var(--leaf);
+      font-family: var(--font-display);
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .success-hero p {
+      font-size: 16px;
+      color: var(--muted-1);
+    }
+    .meta-details {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .meta-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+    }
+    .meta-card span {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--muted-3);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .meta-card strong {
+      font-size: 15px;
+      color: var(--ink);
+    }
+    .receipt-list {
+      max-height: none;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 16px;
+    }
+    .back-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px 0;
+    }
+    
+    @media (min-width: 580px) {
+      .meta-details {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .confirmation-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PRELOADER -->
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-mark">
+        <span class="loader-ring"></span>
+        <div class="loader-bag">🥡</div>
+      </div>
+      <div class="loader-word">CraveRush<span class="dot">.</span></div>
+      <div class="loader-bar"><span></span></div>
+      <p class="loader-caption">Opening order details</p>
+    </div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header>
+    <input type="checkbox" id="menu-toggle" style="display:none;">
+    <nav>
+      <!-- Logo -->
+      <a href="index.html" class="logo">CraveRush<span class="dot">.</span></a>
+      
+      <!-- Location Picker (Desktop Only) -->
+      <div class="location-picker desktop-only" onclick="openModal('location-modal')">
+        <i class="fa-solid fa-location-dot"></i>
+        <span class="current-location-text">Sector 17, Chandigarh</span>
+        <i class="fa-solid fa-chevron-down" style="font-size:10px; color:var(--muted-4);"></i>
+      </div>
+
+      <!-- Backdrop for Mobile Drawer -->
+      <label for="menu-toggle" class="mobile-drawer-backdrop" aria-hidden="true"></label>
+
+      <!-- Navigation links & Mobile Drawer -->
+      <div class="nav-links" id="mobile-menu">
+        <!-- Mobile drawer title and close button -->
+        <div class="drawer-header mobile-only">
+          <span class="drawer-title">Navigation</span>
+          <label for="menu-toggle" class="drawer-close" aria-label="Close navigation menu">
+            <i class="fa-solid fa-xmark"></i>
+          </label>
+        </div>
+
+        <!-- Mobile-only Location picker inside drawer -->
+        <div class="mobile-location-row mobile-only" onclick="openModal('location-modal')">
+          <span class="section-label">Delivery Location</span>
+          <div class="location-picker-mobile">
+            <i class="fa-solid fa-location-dot"></i>
+            <span class="current-location-text">Sector 17, Chandigarh</span>
+            <i class="fa-solid fa-chevron-down" style="font-size:10px; color:var(--muted-4);"></i>
+          </div>
+        </div>
+
+        <!-- Links List -->
+        <span class="section-label mobile-only">Menu</span>
+        <ul class="nav-links-list">
+          <li><a href="index.html"><i class="fa-solid fa-house mobile-only"></i> Home</a></li>
+          <li><a href="menu.html"><i class="fa-solid fa-utensils"></i> Restaurants &amp; Menu</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+        </ul>
+
+        <!-- Mobile-only preferences toggles -->
+        <div class="mobile-preferences mobile-only">
+          <span class="section-label">Preferences</span>
+          
+          <!-- Veg Switch -->
+          <div class="pref-row">
+            <span>Veg Only</span>
+            <div class="veg-switch" title="Show veg only">
+              <input type="checkbox" id="veg-only-toggle-mobile" class="veg-switch-input" onchange="toggleVegOnly(this.checked)">
+              <label for="veg-only-toggle-mobile" class="veg-switch-track" aria-label="Toggle veg only">
+                <span class="veg-switch-icon veg-switch-icon-all">🍽️</span>
+                <span class="veg-switch-icon veg-switch-icon-veg">🟢</span>
+                <span class="veg-switch-knob"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Theme Toggle -->
+          <div class="pref-row">
+            <span>Dark Mode</span>
+            <div class="theme-toggle-wrap">
+              <input type="checkbox" id="theme-toggle-mobile" class="theme-toggle-input">
+              <label for="theme-toggle-mobile" class="theme-toggle" aria-label="Toggle dark mode">
+                <i class="fa-solid fa-sun theme-icon theme-icon-sun"></i>
+                <i class="fa-solid fa-moon theme-icon theme-icon-moon"></i>
+                <span class="theme-toggle-knob"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Profile Section -->
+        <div class="mobile-profile-section mobile-only" id="mobile-profile-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Nav CTA & Burger -->
+      <div class="nav-cta">
+        <!-- Desktop CTA elements -->
+        <div class="desktop-cta-items desktop-only">
+          <input type="checkbox" id="theme-toggle" class="theme-toggle-input">
+          <label for="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+            <i class="fa-solid fa-sun theme-icon theme-icon-sun"></i>
+            <i class="fa-solid fa-moon theme-icon theme-icon-moon"></i>
+            <span class="theme-toggle-knob"></span>
+          </label>
+
+          <div id="user-profile-container">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Hamburger Toggle -->
+        <label for="menu-toggle" class="burger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+          <i class="fa-solid fa-bars"></i>
+        </label>
+      </div>
+    </nav>
+  </header>
+
+  <!-- CONFIRMATION MAIN CONTENT -->
+  <main class="wrap">
+    
+    <!-- No Order State -->
+    <div id="no-order-state" class="empty-checkout-state" style="display:none; margin-top: 60px; margin-bottom: 80px;">
+      <i class="fa-solid fa-receipt"></i>
+      <h2>No Active Orders Found</h2>
+      <p>It seems you do not have any active orders right now. Go check our menu to place one!</p>
+      <a href="menu.html" class="btn btn-solid">Browse Menu</a>
+    </div>
+
+    <!-- Confirmation Grid -->
+    <div id="active-confirmation" class="confirmation-grid">
+      
+      <!-- Left Column: Success state and live tracking -->
+      <div>
+        <div class="success-hero">
+          <i class="fa-regular fa-circle-check"></i>
+          <h1>Order Confirmed!</h1>
+          <p>Your food is being prepared. It will arrive piping hot.</p>
+        </div>
+
+        <div class="meta-details">
+          <div class="meta-card">
+            <span>Order ID</span>
+            <strong id="conf-order-id">CR-000000</strong>
+          </div>
+          <div class="meta-card">
+            <span>Date &amp; Time</span>
+            <strong id="conf-order-date">-</strong>
+          </div>
+          <div class="meta-card">
+            <span>Estimated Delivery</span>
+            <strong id="conf-eta" style="color:var(--chili);">20 mins</strong>
+          </div>
+        </div>
+
+        <!-- Live tracking timeline card -->
+        <div class="checkout-card">
+          <h3 style="font-size: 18px;"><i class="fa-solid fa-bolt"></i> Live Track Status</h3>
+          <p id="conf-status-title" style="font-weight:600; font-size: 15px; margin-bottom: 24px; color: var(--muted-1);">
+            Processing Order
+          </p>
+
+          <div class="timeline" style="margin-top: 40px; margin-bottom: 20px;">
+            <div id="conf-timeline-progress" class="timeline-progress" style="width: 0%;"></div>
+            
+            <div class="timeline-step" id="step-1">
+              <div class="step-icon"><i class="fa-solid fa-receipt"></i></div>
+              <span class="step-label">Order Placed</span>
+            </div>
+            <div class="timeline-step" id="step-2">
+              <div class="step-icon"><i class="fa-solid fa-fire-burner"></i></div>
+              <span class="step-label">Preparing</span>
+            </div>
+            <div class="timeline-step" id="step-3">
+              <div class="step-icon"><i class="fa-solid fa-motorcycle"></i></div>
+              <span class="step-label">On the Way</span>
+            </div>
+            <div class="timeline-step" id="step-4">
+              <div class="step-icon"><i class="fa-solid fa-house-chimney"></i></div>
+              <span class="step-label">Delivered</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Delivery Location and Payment Info -->
+        <div class="checkout-card">
+          <h3 style="font-size: 18px;"><i class="fa-solid fa-map-location-dot"></i> Delivery Details</h3>
+          
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; font-size:14px; text-align:left;">
+            <div>
+              <strong style="display:block; margin-bottom: 6px; font-size: 14.5px; color: var(--ink);">Deliver To:</strong>
+              <p id="conf-address-name" style="font-weight: 600;"></p>
+              <p id="conf-address-phone"></p>
+              <p id="conf-address-flat"></p>
+              <p id="conf-address-street"></p>
+              <p id="conf-address-landmark" style="color:var(--muted-3);"></p>
+              <p id="conf-address-city-state"></p>
+            </div>
+            
+            <div>
+              <strong style="display:block; margin-bottom: 6px; font-size: 14.5px; color: var(--ink);">Payment Information:</strong>
+              <p id="conf-payment-method" style="font-weight: 600;"></p>
+              
+              <strong style="display:block; margin-top: 16px; margin-bottom: 6px; font-size: 14.5px; color: var(--ink);">Delivery Type:</strong>
+              <p id="conf-delivery-type" style="font-weight: 600; color: var(--chili);"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Receipt summary and Home CTA -->
+      <div>
+        <div class="checkout-card" style="padding:24px;">
+          <h3 style="font-size:18px; margin-bottom: 16px;"><i class="fa-solid fa-receipt"></i> Items Purchased</h3>
+          
+          <div style="margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line);">
+            <span style="font-size: 11px; font-weight: 700; color: var(--chili); text-transform: uppercase; font-family: var(--font-mono);">Ordered From</span>
+            <h4 id="conf-restaurant-name" style="font-size: 17px; margin-top: 2px;">McDonald's</h4>
+          </div>
+
+          <!-- Summary Items -->
+          <div class="receipt-list" id="conf-summary-items">
+            <!-- Populated dynamically -->
+          </div>
+
+          <!-- Total Calculation details -->
+          <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+            <div class="bill-row">
+              <span>Subtotal</span>
+              <span id="conf-subtotal">₹0</span>
+            </div>
+            <div class="bill-row" id="conf-discount-row" style="display: none; color: var(--leaf);">
+              <span>Discount</span>
+              <span id="conf-discount">-₹0</span>
+            </div>
+            <div class="bill-row">
+              <span>Delivery Fee</span>
+              <span id="conf-delivery-fee">₹0</span>
+            </div>
+            <div class="bill-row">
+              <span>Platform Fee</span>
+              <span id="conf-platform-fee">₹10</span>
+            </div>
+            <div class="bill-row">
+              <span>Taxes (5%)</span>
+              <span id="conf-tax">₹0</span>
+            </div>
+            <div class="bill-row total" style="margin-top: 10px; padding-top: 10px; font-size: 18px;">
+              <span>Total Paid</span>
+              <span id="conf-total" style="color: var(--chili);">₹0</span>
+            </div>
+          </div>
+
+          <a href="index.html" class="btn btn-solid back-btn"><i class="fa-solid fa-house"></i> Back to Homepage</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container"></div>
+
+  <!-- Core App JS -->
+  <script src="app.js"></script>
+
+  <!-- Confirmation tracker JS -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Small timeout to let app.js load state
+      setTimeout(() => {
+        initConfirmation();
+      }, 150);
+    });
+
+    function initConfirmation() {
+      // Get the order object from localStorage
+      const order = JSON.parse(localStorage.getItem("craverush_active_order"));
+      
+      const noOrderState = document.getElementById("no-order-state");
+      const activeConf = document.getElementById("active-confirmation");
+
+      if (!order) {
+        if (noOrderState) noOrderState.style.display = "block";
+        if (activeConf) activeConf.style.display = "none";
+        return;
+      }
+
+      if (noOrderState) noOrderState.style.display = "none";
+      if (activeConf) activeConf.style.display = "grid";
+
+      // Render Order Header Meta
+      document.getElementById("conf-order-id").textContent = order.orderId;
+      document.getElementById("conf-order-date").textContent = order.date;
+      
+      // Render Address Details
+      document.getElementById("conf-address-name").textContent = order.address.name;
+      document.getElementById("conf-address-phone").textContent = order.address.phone;
+      document.getElementById("conf-address-flat").textContent = order.address.flat;
+      document.getElementById("conf-address-street").textContent = order.address.street;
+      if (order.address.landmark) {
+        document.getElementById("conf-address-landmark").textContent = "Landmark: " + order.address.landmark;
+        document.getElementById("conf-address-landmark").style.display = "block";
+      } else {
+        document.getElementById("conf-address-landmark").style.display = "none";
+      }
+      document.getElementById("conf-address-city-state").textContent = order.address.city + ", " + order.address.state + " - " + order.address.pincode;
+
+      // Render Delivery & Payment meta
+      document.getElementById("conf-payment-method").textContent = order.paymentMethod;
+      document.getElementById("conf-delivery-type").textContent = order.deliveryOption;
+
+      // Render Restaurant & Items
+      document.getElementById("conf-restaurant-name").textContent = order.restaurant;
+      const itemsContainer = document.getElementById("conf-summary-items");
+      if (itemsContainer) {
+        itemsContainer.innerHTML = order.items.map(item => `
+          <div class="summary-item">
+            <img src="${item.image}" alt="${item.name}" class="summary-item-img">
+            <div class="summary-item-details">
+              <div class="summary-item-name">${item.name}</div>
+              <div class="summary-item-meta">Qty: ${item.quantity} × ₹${item.price}</div>
+            </div>
+            <div class="summary-item-price">₹${item.price * item.quantity}</div>
+          </div>
+        `).join("");
+      }
+
+      // Render Calculations
+      document.getElementById("conf-subtotal").textContent = `₹${order.subtotal}`;
+      const discRow = document.getElementById("conf-discount-row");
+      if (order.discount > 0) {
+        discRow.style.display = "flex";
+        document.getElementById("conf-discount").textContent = `-₹${order.discount}`;
+      } else {
+        discRow.style.display = "none";
+      }
+      document.getElementById("conf-delivery-fee").textContent = order.deliveryFee === 0 ? "FREE" : `₹${order.deliveryFee}`;
+      document.getElementById("conf-platform-fee").textContent = `₹${order.platformFee}`;
+      document.getElementById("conf-tax").textContent = `₹${order.tax}`;
+      document.getElementById("conf-total").textContent = `₹${order.total}`;
+
+      // Start live visual sync with activeOrder in localStorage (timer in app.js drives this statusStep value)
+      syncLiveTracker();
+      setInterval(syncLiveTracker, 1000);
+    }
+
+    function syncLiveTracker() {
+      const order = JSON.parse(localStorage.getItem("craverush_active_order"));
+      if (!order) return;
+
+      const step = order.statusStep || 1;
+      const eta = order.estimatedMinutes || 20;
+
+      // Update ETA
+      document.getElementById("conf-eta").textContent = eta > 0 ? `${eta} mins` : "Delivered";
+
+      // Update Status Text
+      const statusTitleEl = document.getElementById("conf-status-title");
+      if (statusTitleEl) {
+        statusTitleEl.textContent = getStatusTitleText(step);
+      }
+
+      // Update timeline step highlights
+      const progressPercent = ((step - 1) / 3) * 100;
+      const progressBar = document.getElementById("conf-timeline-progress");
+      if (progressBar) {
+        progressBar.style.width = `calc(${progressPercent}% - 40px)`;
+      }
+
+      for (let i = 1; i <= 4; i++) {
+        const stepEl = document.getElementById(`step-${i}`);
+        if (stepEl) {
+          stepEl.className = "timeline-step"; // reset
+          if (i < step) {
+            stepEl.classList.add("completed");
+          } else if (i === step) {
+            stepEl.classList.add("active");
+            if (step === 4) {
+              stepEl.classList.add("completed");
+            }
+          }
+        }
+      }
+    }
+
+    function getStatusTitleText(step) {
+      switch (step) {
+        case 1: return "Order Received by Kitchen";
+        case 2: return "Chef is Firing Up Your Meal 🔥";
+        case 3: return "Rider Picked Up & On the Way 🛵";
+        case 4: return "Order Delivered! Enjoy Your Meal 😋";
+        default: return "Processing Order";
+      }
+    }
+  </script>
+
+  <!-- LOCATION SELECTOR MODAL -->
+  <div id="location-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width:500px;">
+      <div class="modal-header">
+        <h3>Select Delivery Location</h3>
+        <button class="close-btn" onclick="closeModal('location-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Type Your Address / Sector</label>
+          <input type="text" id="custom-location-input" class="form-control" placeholder="Enter landmark, sector, or city...">
+        </div>
+        <button class="btn btn-solid" style="width:100%; margin-bottom:20px;" onclick="selectCustomLocation()">Set Delivery Location</button>
+
+        <label style="font-size:13px; font-weight:600; color:var(--muted-3); display:block; margin-bottom:10px;">POPULAR CITIES &amp; SECTORS</label>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div class="dropdown-item" onclick="setLocation('Sector 17, Chandigarh')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Sector 17, Chandigarh</div>
+          <div class="dropdown-item" onclick="setLocation('Connaught Place, New Delhi')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Connaught Place, New Delhi</div>
+          <div class="dropdown-item" onclick="setLocation('Bandra West, Mumbai')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Bandra West, Mumbai</div>
+          <div class="dropdown-item" onclick="setLocation('Indiranagar, Bengaluru')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Indiranagar, Bengaluru</div>
+          <div class="dropdown-item" onclick="setLocation('Cyber City, Gurugram')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Cyber City, Gurugram</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTHENTICATION MODAL -->
+  <div id="auth-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width:440px;">
+      <div class="modal-body">
+        
+        <!-- Account panel (displayed when user is logged in) -->
+        <div id="account-view" class="account-view" style="display:none;">
+          <div class="modal-header" style="border:none; padding:10px 0;">
+            <h3>My Account</h3>
+            <button class="close-btn" onclick="closeModal('auth-modal')"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div class="account-avatar-lg" id="account-avatar-lg">U</div>
+          <h4 id="account-name">User Name</h4>
+          <p class="account-email" id="account-email">user@domain.com</p>
+          <div class="account-info-row">
+            <span>Name</span>
+            <span id="account-info-name">—</span>
+          </div>
+          <div class="account-info-row">
+            <span>Email</span>
+            <span id="account-info-email">—</span>
+          </div>
+          <button class="logout-btn" onclick="logoutUser()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</button>
+        </div>
+
+        <!-- Auth Forms panel (displayed when user is signed out) -->
+        <div id="auth-forms-wrap">
+          <div class="modal-header" style="border:none; padding:10px 0;">
+            <h3>CraveRush Account</h3>
+            <button class="close-btn" onclick="closeModal('auth-modal')"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div class="auth-tabs" style="display:flex; border-bottom:2px solid var(--line); margin-bottom:20px;">
+            <button class="auth-tab active" onclick="switchAuthTab('signin')" style="flex:1; padding:12px; font-weight:700; background:transparent;">Sign In</button>
+            <button class="auth-tab" onclick="switchAuthTab('signup')" style="flex:1; padding:12px; font-weight:700; background:transparent;">Sign Up</button>
+          </div>
+
+          <form id="signin-form" onsubmit="handleSignIn(event)">
+            <div class="form-group">
+              <label>Email Address or Mobile Number</label>
+              <input type="text" id="signin-email" class="form-control" placeholder="name@domain.com or +91..." required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn btn-solid" style="width:100%; margin-top:10px;">Sign In &amp; Order</button>
+          </form>
+
+          <form id="signup-form" onsubmit="handleSignUp(event)" style="display:none;">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="signup-name" class="form-control" placeholder="e.g. Michelle Sharma" required>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="signup-email" class="form-control" placeholder="name@domain.com" required>
+            </div>
+            <div class="form-group">
+              <label>Mobile Number</label>
+              <input type="tel" class="form-control" placeholder="+91 98765 43210" required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" placeholder="Create strong password" required>
+            </div>
+            <button type="submit" class="btn btn-solid" style="width:100%; margin-top:10px;">Create Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART DRAWER (SLIDE-OVER) -->
+  <div id="cart-drawer-overlay" class="cart-drawer-overlay"></div>
+  <div id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3>My Food Bag</h3>
+      <button id="close-cart-btn" class="close-btn" aria-label="Close cart drawer"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cart-body">
+      <!-- Empty state -->
+      <div id="cart-empty-state" class="cart-empty-state">
+        <i class="fa-solid fa-basket-shopping"></i>
+        <p>Your food bag is currently empty.</p>
+        <a href="index.html#menu" onclick="toggleCartDrawer(false)" class="btn btn-solid btn-sm" style="margin-top:15px; display:inline-flex;">Browse Restaurants</a>
+      </div>
+      <!-- Items list -->
+      <div id="cart-items-container" style="display:flex; flex-direction:column;"></div>
+    </div>
+    <div class="cart-footer" style="padding:22px 26px; border-top:1px solid var(--line); background:var(--card);">
+      <div class="coupon-box">
+        <input type="text" id="coupon-code" placeholder="Enter coupon code...">
+        <button class="coupon-btn" onclick="applyCoupon()">Apply</button>
+      </div>
+      <div class="bill-details" style="display:flex; flex-direction:column; gap:10px; margin-bottom:20px; font-size:14px;">
+        <div style="display:flex; justify-content:space-between;"><span>Subtotal</span><strong id="cart-subtotal">₹0</strong></div>
+        <div style="display:flex; justify-content:space-between; color:var(--chili); display:none;" id="cart-discount-row"><span>Discount Applied</span><strong id="cart-discount">-₹0</strong></div>
+        <div style="display:flex; justify-content:space-between; font-size:16px; font-weight:700; border-top:1.5px solid var(--line); padding-top:10px;"><span>Grand Total</span><strong id="cart-total">₹0</strong></div>
+      </div>
+      <button class="btn btn-solid" style="width:100%; padding:14px 0; font-size:15px; font-weight:700;" onclick="proceedToCheckout()">Checkout Flow &rarr;</button>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container"></div>
+
+  <!-- Main JavaScript File -->
+  <script src="app.js"></script>
+</body>
+</html>

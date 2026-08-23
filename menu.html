@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Food Items — CraveRush Food Delivery</title>
-  <meta name="description" content="Browse every dish, side, beverage, and dessert on CraveRush — filter by cuisine, category, and veg/non-veg.">
+  <title>Full Menu &amp; Restaurants — CraveRush Food Delivery</title>
+  <meta name="description" content="Browse full food menu, famous food restaurants, sides, beverages, and desserts on CraveRush.">
   
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,7 @@
       </div>
       <div class="loader-word">CraveRush<span class="dot">.</span></div>
       <div class="loader-bar"><span></span></div>
-      <p class="loader-caption">Loading food items</p>
+      <p class="loader-caption">Loading full food catalog</p>
     </div>
   </div>
 
@@ -32,52 +32,125 @@
   <header>
     <input type="checkbox" id="menu-toggle" style="display:none;">
     <nav>
+      <!-- Logo -->
       <a href="index.html" class="logo">CraveRush<span class="dot">.</span></a>
       
-      <div class="location-picker" onclick="openModal('location-modal')">
+      <!-- Location Picker (Desktop Only) -->
+      <div class="location-picker desktop-only" onclick="openModal('location-modal')">
         <i class="fa-solid fa-location-dot"></i>
-        <span id="current-location-text">Sector 17, Chandigarh</span>
+        <span class="current-location-text">Sector 17, Chandigarh</span>
         <i class="fa-solid fa-chevron-down" style="font-size:10px; color:var(--muted-4);"></i>
       </div>
 
-      <div class="nav-search" id="nav-search">
-        <button type="button" class="nav-search-toggle" id="nav-search-toggle" aria-label="Search">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-        <div class="nav-search-panel" id="nav-search-panel">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="text" id="global-search" placeholder="Search dishes, burgers, pizza, drinks..." autocomplete="off">
-          <div id="search-results-dropdown" class="search-results-dropdown"></div>
+      <!-- Search Bar -->
+      <div class="nav-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="global-search" placeholder="Search dishes, burgers, pizza, drinks...">
+      </div>
+
+      <!-- Backdrop for Mobile Drawer -->
+      <label for="menu-toggle" class="mobile-drawer-backdrop" aria-hidden="true"></label>
+
+      <!-- Navigation links & Mobile Drawer -->
+      <div class="nav-links" id="mobile-menu">
+        <!-- Mobile drawer title and close button -->
+        <div class="drawer-header mobile-only">
+          <span class="drawer-title">Navigation</span>
+          <label for="menu-toggle" class="drawer-close" aria-label="Close navigation menu">
+            <i class="fa-solid fa-xmark"></i>
+          </label>
+        </div>
+
+        <!-- Mobile-only Location picker inside drawer -->
+        <div class="mobile-location-row mobile-only" onclick="openModal('location-modal')">
+          <span class="section-label">Delivery Location</span>
+          <div class="location-picker-mobile">
+            <i class="fa-solid fa-location-dot"></i>
+            <span class="current-location-text">Sector 17, Chandigarh</span>
+            <i class="fa-solid fa-chevron-down" style="font-size:10px; color:var(--muted-4);"></i>
+          </div>
+        </div>
+
+        <!-- Links List -->
+        <span class="section-label mobile-only">Menu</span>
+        <ul class="nav-links-list">
+          <li><a href="index.html"><i class="fa-solid fa-house mobile-only"></i> Home</a></li>
+          <li><a href="menu.html" class="active"><i class="fa-solid fa-utensils"></i> Restaurants &amp; Menu</a></li>
+          <li><a href="javascript:openOrderTracking()"><i class="fa-solid fa-route"></i> Live Track</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+        </ul>
+
+        <!-- Mobile-only preferences toggles -->
+        <div class="mobile-preferences mobile-only">
+          <span class="section-label">Preferences</span>
+          
+          <!-- Veg Switch -->
+          <div class="pref-row">
+            <span>Veg Only</span>
+            <div class="veg-switch" title="Show veg only">
+              <input type="checkbox" id="veg-only-toggle-mobile" class="veg-switch-input" onchange="toggleVegOnly(this.checked)">
+              <label for="veg-only-toggle-mobile" class="veg-switch-track" aria-label="Toggle veg only">
+                <span class="veg-switch-icon veg-switch-icon-all">🍽️</span>
+                <span class="veg-switch-icon veg-switch-icon-veg">🟢</span>
+                <span class="veg-switch-knob"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Theme Toggle -->
+          <div class="pref-row">
+            <span>Dark Mode</span>
+            <div class="theme-toggle-wrap">
+              <input type="checkbox" id="theme-toggle-mobile" class="theme-toggle-input">
+              <label for="theme-toggle-mobile" class="theme-toggle" aria-label="Toggle dark mode">
+                <i class="fa-solid fa-sun theme-icon theme-icon-sun"></i>
+                <i class="fa-solid fa-moon theme-icon theme-icon-moon"></i>
+                <span class="theme-toggle-knob"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Profile Section -->
+        <div class="mobile-profile-section mobile-only" id="mobile-profile-container">
+          <!-- Populated by JS -->
         </div>
       </div>
 
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="restaurants.html">Restaurants</a></li>
-        <li><a href="menu.html" class="active">Food Items</a></li>
-        <li><a href="orders.html">Orders</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="reviews.html">Reviews</a></li>
-      </ul>
-
+      <!-- Nav CTA & Burger -->
       <div class="nav-cta">
-        <input type="checkbox" id="theme-toggle" class="theme-toggle-input">
-        <label for="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-          <i class="fa-solid fa-sun theme-icon theme-icon-sun"></i>
-          <i class="fa-solid fa-moon theme-icon theme-icon-moon"></i>
-          <span class="theme-toggle-knob"></span>
-        </label>
+        <!-- Desktop CTA elements -->
+        <div class="desktop-cta-items desktop-only">
+          <input type="checkbox" id="theme-toggle" class="theme-toggle-input">
+          <label for="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+            <i class="fa-solid fa-sun theme-icon theme-icon-sun"></i>
+            <i class="fa-solid fa-moon theme-icon theme-icon-moon"></i>
+            <span class="theme-toggle-knob"></span>
+          </label>
 
-        <button id="open-cart-btn" class="cart-btn" aria-label="Cart">
-          <i class="fa-solid fa-bag-shopping"></i>
-          <span id="cart-badge" class="cart-badge">0</span>
-        </button>
+          <!-- Veg-Only Preference Switch -->
+          <div class="veg-switch" title="Show veg only">
+            <input type="checkbox" id="veg-only-toggle" class="veg-switch-input" onchange="toggleVegOnly(this.checked)">
+            <label for="veg-only-toggle" class="veg-switch-track" aria-label="Toggle veg only">
+              <span class="veg-switch-icon veg-switch-icon-all">🍽️</span>
+              <span class="veg-switch-icon veg-switch-icon-veg">🟢</span>
+              <span class="veg-switch-knob"></span>
+            </label>
+          </div>
 
-        <div id="user-profile-container">
-          <!-- Populated by JS -->
+          <div id="user-profile-container">
+            <!-- Populated by JS -->
+          </div>
         </div>
 
-        <label for="menu-toggle" class="burger" aria-label="Open navigation menu">
+        <!-- Cart Button -->
+        <button id="open-cart-btn" class="cart-btn" aria-label="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge">0</span>
+        </button>
+
+        <!-- Hamburger Toggle -->
+        <label for="menu-toggle" class="burger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
           <i class="fa-solid fa-bars"></i>
         </label>
       </div>
@@ -89,8 +162,24 @@
     <div class="wrap">
       <div class="about-hero" style="padding-bottom:10px;">
         <p class="eyebrow">Explore Full Catalog</p>
-        <h1 style="font-size:42px; margin:12px 0;">All Food Items</h1>
-        <p>1,000+ dishes, sides, drinks &amp; desserts from McDonald's, KFC, Burger King, Domino's, Subway, Haldiram's, Starbucks, Biryani By Kilo &amp; more. Looking for a specific kitchen instead? <a href="restaurants.html" style="color:var(--chili); font-weight:600;">Browse Restaurants →</a></p>
+        <h1 style="font-size:42px; margin:12px 0;">All Verified Restaurants &amp; Dishes</h1>
+        <p>Order from McDonald's, KFC, Burger King, Domino's, Subway, Haldiram's, Starbucks, Biryani By Kilo &amp; more.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERIFIED RESTAURANTS -->
+  <section class="section" id="restaurants" style="padding-top:20px;">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Famous Kitchen Partners</p>
+          <h2>All Verified Restaurants (${RESTAURANTS.length})</h2>
+        </div>
+      </div>
+
+      <div class="restaurant-grid" id="restaurant-container">
+        <!-- Rendered dynamically by JS -->
       </div>
     </div>
   </section>
@@ -210,29 +299,25 @@
       <div class="modal-body">
         <!-- Shown when a user is already signed in -->
         <div id="account-view" class="account-view" style="display:none;">
-          <div class="account-view-header">
-            <div class="account-avatar-lg" id="account-avatar-lg">U</div>
-            <div>
-              <h4 id="account-name">Account</h4>
-              <p class="account-email" id="account-email">—</p>
-            </div>
-          </div>
+          <div class="account-avatar-lg" id="account-avatar-lg">U</div>
+          <h4 id="account-name">Account</h4>
+          <p class="account-email" id="account-email">—</p>
 
-          <div class="account-tabs">
-            <div class="account-tab active" data-tab="profile" onclick="switchAccountTab('profile')"><i class="fa-regular fa-id-card"></i> Profile</div>
-            <div class="account-tab" data-tab="addresses" onclick="switchAccountTab('addresses')"><i class="fa-solid fa-location-dot"></i> Addresses</div>
-            <div class="account-tab" data-tab="wallet" onclick="switchAccountTab('wallet')"><i class="fa-solid fa-wallet"></i> Wallet</div>
+          <div class="account-info-row">
+            <span>Full Name</span>
+            <span id="account-info-name">—</span>
           </div>
-
-          <div id="account-tab-profile" class="account-tab-panel"></div>
-          <div id="account-tab-addresses" class="account-tab-panel" style="display:none;"></div>
-          <div id="account-tab-wallet" class="account-tab-panel" style="display:none;"></div>
+          <div class="account-info-row">
+            <span>Email</span>
+            <span id="account-info-email">—</span>
+          </div>
 
           <button type="button" class="logout-btn" onclick="logoutUser()">
             <i class="fa-solid fa-right-from-bracket"></i> Log Out
           </button>
         </div>
 
+        <!-- Shown when signed out -->
         <div id="auth-forms-wrap">
           <div class="auth-tabs">
             <div class="auth-tab active" onclick="switchAuthTab('signin')">Sign In</div>
@@ -262,7 +347,7 @@
             </div>
             <div class="form-group">
               <label>Mobile Number</label>
-              <input type="tel" id="signup-phone" class="form-control" placeholder="+91 98765 43210" required>
+              <input type="tel" class="form-control" placeholder="+91 98765 43210" required>
             </div>
             <div class="form-group">
               <label>Password</label>
