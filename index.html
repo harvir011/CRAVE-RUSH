@@ -34,128 +34,53 @@
   <header>
     <input type="checkbox" id="menu-toggle" style="display:none;">
     <nav>
-      <!-- Logo -->
       <a href="#" class="logo">CraveRush<span class="dot">.</span></a>
       
-      <!-- Location Picker (Desktop Only) -->
-      <div class="location-picker desktop-only" onclick="openModal('location-modal')">
+      <div class="location-picker" onclick="openModal('location-modal')">
         <i class="fa-solid fa-location-dot"></i>
-        <span class="current-location-text">Sector 17, Chandigarh</span>
+        <span id="current-location-text">Sector 17, Chandigarh</span>
         <i class="fa-solid fa-chevron-down" style="font-size:10px; color:var(--muted-4);"></i>
       </div>
 
-      <!-- Search Bar -->
-      <div class="nav-search">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="global-search" placeholder="Search burgers, fries, drinks, desserts...">
-      </div>
-
-      <!-- Backdrop for Mobile Drawer -->
-      <label for="menu-toggle" class="mobile-drawer-backdrop" aria-hidden="true"></label>
-
-      <!-- Navigation links & Mobile Drawer -->
-      <div class="nav-links" id="mobile-menu">
-        <!-- Mobile drawer title and close button -->
-        <div class="drawer-header mobile-only">
-          <span class="drawer-title">Navigation</span>
-          <label for="menu-toggle" class="drawer-close" aria-label="Close navigation menu">
-            <i class="fa-solid fa-xmark"></i>
-          </label>
-        </div>
-
-        <!-- Mobile-only Location picker inside drawer -->
-        <div class="mobile-location-row mobile-only" onclick="openModal('location-modal')">
-          <span class="section-label">Delivery Location</span>
-          <div class="location-picker-mobile">
-            <i class="fa-solid fa-location-dot"></i>
-            <span class="current-location-text">Sector 17, Chandigarh</span>
-            <i class="fa-solid fa-chevron-down" style="font-size:10px; color:var(--muted-4);"></i>
-          </div>
-        </div>
-
-        <!-- Links List -->
-        <span class="section-label mobile-only">Menu</span>
-        <ul class="nav-links-list">
-          <li><a href="#restaurants" class="active"><i class="fa-solid fa-store mobile-only"></i> Restaurants</a></li>
-          <li><a href="#menu"><i class="fa-solid fa-utensils"></i> Menu</a></li>
-          <li><a href="javascript:openOrderTracking()"><i class="fa-solid fa-route"></i> Live Track</a></li>
-          <li><a href="javascript:openAboutModal()"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
-          <li><a href="#reviews"><i class="fa-solid fa-star"></i> Reviews</a></li>
-        </ul>
-
-        <!-- Mobile-only preferences toggles -->
-        <div class="mobile-preferences mobile-only">
-          <span class="section-label">Preferences</span>
-          
-          <!-- Veg Switch -->
-          <div class="pref-row">
-            <span>Veg Only</span>
-            <div class="veg-switch" title="Show veg only">
-              <input type="checkbox" id="veg-only-toggle-mobile" class="veg-switch-input" onchange="toggleVegOnly(this.checked)">
-              <label for="veg-only-toggle-mobile" class="veg-switch-track" aria-label="Toggle veg only">
-                <span class="veg-switch-icon veg-switch-icon-all">🍽️</span>
-                <span class="veg-switch-icon veg-switch-icon-veg">🟢</span>
-                <span class="veg-switch-knob"></span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Theme Toggle -->
-          <div class="pref-row">
-            <span>Dark Mode</span>
-            <div class="theme-toggle-wrap">
-              <input type="checkbox" id="theme-toggle-mobile" class="theme-toggle-input">
-              <label for="theme-toggle-mobile" class="theme-toggle" aria-label="Toggle dark mode">
-                <i class="fa-solid fa-sun theme-icon theme-icon-sun"></i>
-                <i class="fa-solid fa-moon theme-icon theme-icon-moon"></i>
-                <span class="theme-toggle-knob"></span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- Mobile Profile Section -->
-        <div class="mobile-profile-section mobile-only" id="mobile-profile-container">
-          <!-- Populated by JS -->
+      <div class="nav-search" id="nav-search">
+        <button type="button" class="nav-search-toggle" id="nav-search-toggle" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <div class="nav-search-panel" id="nav-search-panel">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="global-search" placeholder="Search burgers, fries, drinks, desserts..." autocomplete="off">
+          <div id="search-results-dropdown" class="search-results-dropdown"></div>
         </div>
       </div>
 
-      <!-- Nav CTA & Burger -->
+      <ul class="nav-links">
+        <li><a href="restaurants.html">Restaurants</a></li>
+        <li><a href="menu.html">Food Items</a></li>
+        <li><a href="orders.html">Orders</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+      </ul>
+
       <div class="nav-cta">
-        <!-- Desktop CTA elements -->
-        <div class="desktop-cta-items desktop-only">
-          <input type="checkbox" id="theme-toggle" class="theme-toggle-input">
-          <label for="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-            <i class="fa-solid fa-sun theme-icon theme-icon-sun"></i>
-            <i class="fa-solid fa-moon theme-icon theme-icon-moon"></i>
-            <span class="theme-toggle-knob"></span>
-          </label>
+        <input type="checkbox" id="theme-toggle" class="theme-toggle-input">
+        <label for="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-sun theme-icon theme-icon-sun"></i>
+          <i class="fa-solid fa-moon theme-icon theme-icon-moon"></i>
+          <span class="theme-toggle-knob"></span>
+        </label>
 
-          <!-- Veg-Only Preference Switch -->
-          <div class="veg-switch" title="Show veg only">
-            <input type="checkbox" id="veg-only-toggle" class="veg-switch-input" onchange="toggleVegOnly(this.checked)">
-            <label for="veg-only-toggle" class="veg-switch-track" aria-label="Toggle veg only">
-              <span class="veg-switch-icon veg-switch-icon-all">🍽️</span>
-              <span class="veg-switch-icon veg-switch-icon-veg">🟢</span>
-              <span class="veg-switch-knob"></span>
-            </label>
-          </div>
-
-          <div id="user-profile-container">
-            <!-- Populated by JS -->
-          </div>
-
-          <a href="#menu" class="btn btn-solid btn-sm">Order Now</a>
-        </div>
-
-        <!-- Cart Button -->
         <button id="open-cart-btn" class="cart-btn" aria-label="Cart">
           <i class="fa-solid fa-bag-shopping"></i>
-          <span class="cart-badge">0</span>
+          <span id="cart-badge" class="cart-badge">0</span>
         </button>
 
-        <!-- Hamburger Toggle -->
-        <label for="menu-toggle" class="burger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+        <div id="user-profile-container">
+          <!-- Populated by JS -->
+        </div>
+
+        <a href="menu.html" class="btn btn-solid btn-sm">Order Now</a>
+
+        <label for="menu-toggle" class="burger" aria-label="Open navigation menu">
           <i class="fa-solid fa-bars"></i>
         </label>
       </div>
@@ -171,7 +96,7 @@
         <p class="lede">1,000+ top chef restaurants, real-time tracking, and zero delivery fee on your first order. Satisfy your wildest cravings in under 20 minutes.</p>
         
         <div class="hero-actions">
-          <a href="#menu" class="btn btn-solid"><i class="fa-solid fa-utensils"></i> Find Food</a>
+          <a href="menu.html" class="btn btn-solid"><i class="fa-solid fa-utensils"></i> Find Food</a>
           <a href="#features" class="btn btn-ghost"><i class="fa-solid fa-circle-play"></i> See how it works</a>
         </div>
 
@@ -218,61 +143,27 @@
     </div>
   </div>
 
-  <!-- VERIFIED RESTAURANT PARTNERS -->
-  <section class="section" id="restaurants">
+  <!-- BROWSE RESTAURANTS / FOOD ITEMS (two separate catalog pages) -->
+  <section class="section" id="restaurants" style="padding-top:20px;">
     <div class="wrap">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Verified Kitchens</p>
-          <h2>Famous Food Restaurants Near You</h2>
+      <div class="discover-band">
+        <div class="discover-copy">
+          <p class="eyebrow">1,000+ dishes, 50+ kitchens</p>
+          <h2>Hungry? Browse every restaurant &amp; dish in one place.</h2>
+          <p>McDonald's, KFC, Domino's, Subway, Starbucks, Biryani By Kilo &amp; more — explore by kitchen, or filter every dish by cuisine, veg/non-veg, and category.</p>
         </div>
-        <p>Order directly from top rated national brands and local culinary icons.</p>
-      </div>
-
-      <div class="restaurant-grid" id="restaurant-container">
-        <!-- Rendered dynamically by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- POPULAR DISHES & MENU -->
-  <section class="section" id="menu" style="padding-top:20px;">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Our Cravings Menu</p>
-          <h2>Explore Popular Dishes, Sides, Drinks &amp; Desserts</h2>
+        <div class="discover-cards">
+          <a href="restaurants.html" class="discover-card">
+            <span class="discover-card-icon">🏬</span>
+            <span class="discover-card-title">Restaurants</span>
+            <span class="discover-card-sub">50+ verified kitchens</span>
+          </a>
+          <a href="menu.html" class="discover-card">
+            <span class="discover-card-icon">🍽️</span>
+            <span class="discover-card-title">Food Items</span>
+            <span class="discover-card-sub">1,000+ dishes &amp; drinks</span>
+          </a>
         </div>
-        <p>Handcrafted gourmet meals, crispy sides, iced drinks &amp; rich desserts made fresh to order.</p>
-      </div>
-
-      <!-- Veg / Non-Veg & Filter Controls -->
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:24px;">
-        <div class="category-bar" style="margin-bottom:0;">
-          <span class="cat-pill active" data-cat="All items">All items</span>
-          <span class="cat-pill" data-cat="Gourmet Burgers">Burgers</span>
-          <span class="cat-pill" data-cat="Artisanal Pizza">Pizza</span>
-          <span class="cat-pill" data-cat="Sides & Starters">🍟 Sides &amp; Starters</span>
-          <span class="cat-pill" data-cat="Refreshers & Drinks">🥤 Drinks &amp; Shakes</span>
-          <span class="cat-pill" data-cat="Desserts">🍰 Desserts &amp; Sweets</span>
-          <span class="cat-pill" data-cat="Fresh Sushi">Fresh Sushi</span>
-          <span class="cat-pill" data-cat="Healthy Bowls">Healthy Bowls</span>
-          <span class="cat-pill" data-cat="Indian & Curry">Indian &amp; Curry</span>
-          <span class="cat-pill" data-cat="Biryani">Biryani</span>
-        </div>
-
-        <div style="display:flex; align-items:center; gap:10px;">
-          <label style="font-size:13px; font-weight:600; color:var(--muted-1);">Diet Filter:</label>
-          <select id="veg-toggle" class="form-control" style="width:auto; padding:6px 14px; border-radius:100px; font-size:13px;">
-            <option value="all">All Items</option>
-            <option value="veg">🟢 Veg Only</option>
-            <option value="nonveg">🔴 Non-Veg Only</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="dish-grid" id="dish-container">
-        <!-- Rendered dynamically by JS -->
       </div>
     </div>
   </section>
@@ -320,6 +211,7 @@
           <p class="eyebrow">Testimonials</p>
           <h2>Loved by 100,000+ food lovers.</h2>
         </div>
+        <a href="reviews.html" class="btn btn-ghost btn-sm">See All Reviews &amp; Write Yours →</a>
       </div>
 
       <div class="reviews-grid">
@@ -377,9 +269,9 @@
         <div class="footer-col">
           <h4>Discover</h4>
           <ul>
-            <li><a href="#restaurants">Top Restaurants</a></li>
-            <li><a href="#menu">Popular Menu</a></li>
-            <li><a href="javascript:openAboutModal()">CravePass Membership</a></li>
+            <li><a href="restaurants.html">Top Restaurants</a></li>
+            <li><a href="menu.html">Popular Menu</a></li>
+            <li><a href="about.html">CravePass Membership</a></li>
             <li><a href="#features">20-Min Guarantee</a></li>
           </ul>
         </div>
@@ -394,9 +286,9 @@
         <div class="footer-col">
           <h4>Support</h4>
           <ul>
-            <li><a href="javascript:openAboutModal()">Help Centre</a></li>
-            <li><a href="javascript:openOrderTracking()">Track Active Order</a></li>
-            <li><a href="javascript:openAboutModal()">Contact Us</a></li>
+            <li><a href="about.html">Help Centre</a></li>
+            <li><a href="orders.html">Track Active Order</a></li>
+            <li><a href="about.html">Contact Us</a></li>
           </ul>
         </div>
       </div>
@@ -471,25 +363,29 @@
       <div class="modal-body">
         <!-- Shown when a user is already signed in -->
         <div id="account-view" class="account-view" style="display:none;">
-          <div class="account-avatar-lg" id="account-avatar-lg">U</div>
-          <h4 id="account-name">Account</h4>
-          <p class="account-email" id="account-email">—</p>
+          <div class="account-view-header">
+            <div class="account-avatar-lg" id="account-avatar-lg">U</div>
+            <div>
+              <h4 id="account-name">Account</h4>
+              <p class="account-email" id="account-email">—</p>
+            </div>
+          </div>
 
-          <div class="account-info-row">
-            <span>Full Name</span>
-            <span id="account-info-name">—</span>
+          <div class="account-tabs">
+            <div class="account-tab active" data-tab="profile" onclick="switchAccountTab('profile')"><i class="fa-regular fa-id-card"></i> Profile</div>
+            <div class="account-tab" data-tab="addresses" onclick="switchAccountTab('addresses')"><i class="fa-solid fa-location-dot"></i> Addresses</div>
+            <div class="account-tab" data-tab="wallet" onclick="switchAccountTab('wallet')"><i class="fa-solid fa-wallet"></i> Wallet</div>
           </div>
-          <div class="account-info-row">
-            <span>Email</span>
-            <span id="account-info-email">—</span>
-          </div>
+
+          <div id="account-tab-profile" class="account-tab-panel"></div>
+          <div id="account-tab-addresses" class="account-tab-panel" style="display:none;"></div>
+          <div id="account-tab-wallet" class="account-tab-panel" style="display:none;"></div>
 
           <button type="button" class="logout-btn" onclick="logoutUser()">
             <i class="fa-solid fa-right-from-bracket"></i> Log Out
           </button>
         </div>
 
-        <!-- Shown when signed out -->
         <div id="auth-forms-wrap">
           <div class="auth-tabs">
             <div class="auth-tab active" onclick="switchAuthTab('signin')">Sign In</div>
@@ -519,7 +415,7 @@
             </div>
             <div class="form-group">
               <label>Mobile Number</label>
-              <input type="tel" class="form-control" placeholder="+91 98765 43210" required>
+              <input type="tel" id="signup-phone" class="form-control" placeholder="+91 98765 43210" required>
             </div>
             <div class="form-group">
               <label>Password</label>
@@ -569,46 +465,6 @@
   <div id="restaurant-menu-modal" class="modal-overlay">
     <div class="modal-content" id="restaurant-menu-content" style="max-width:680px;">
       <!-- Rendered dynamically by JS -->
-    </div>
-  </div>
-
-  <!-- ABOUT US MODAL -->
-  <div id="about-modal" class="modal-overlay">
-    <div class="modal-content" style="max-width:640px;">
-      <div class="modal-header">
-        <h3>About CraveRush</h3>
-        <button class="close-btn" onclick="closeModal('about-modal')"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body">
-        <div class="about-hero">
-          <h2>Fired up for speed &amp; taste.</h2>
-          <p>CraveRush is India's premier hyper-local food delivery network engineered for under-20-minute gourmet delivery from top chef kitchens.</p>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stat-card">
-            <strong>20m</strong>
-            <span>Avg Speed</span>
-          </div>
-          <div class="stat-card">
-            <strong>1000+</strong><span>Partners</span>
-          </div>
-          <div class="stat-card">
-            <strong>100k+</strong><span>Deliveries</span>
-          </div>
-          <div class="stat-card">
-            <strong>4.9★</strong><span>Rating</span>
-          </div>
-        </div>
-
-        <div style="line-height:1.6; color:var(--muted-1); font-size:14.5px;">
-          <h4 style="font-family:var(--font-display); font-size:18px; margin:16px 0 8px; color:var(--ink);">Our 20-Minute Guarantee</h4>
-          <p>We pioneered thermal lock EV delivery pods. If your order exceeds 20 minutes from the time of checkout, your entire bill is 100% refunded with zero questions asked.</p>
-          
-          <h4 style="font-family:var(--font-display); font-size:18px; margin:16px 0 8px; color:var(--ink);">Curated Partner Kitchens</h4>
-          <p>Every restaurant partner on CraveRush undergoes strict food safety audits, kitchen hygiene checks, and temperature-controlled packaging verification.</p>
-        </div>
-      </div>
     </div>
   </div>
 
