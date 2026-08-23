@@ -833,6 +833,19 @@ document.addEventListener("DOMContentLoaded", () => {
     sessionStorage.setItem("craverush_visited", "true");
   }
 
+  // Dark mode: keep the toggle in sync with the saved preference and
+  // persist any change so it carries over to every other page.
+  const themeToggle = document.getElementById("theme-toggle");
+  if (themeToggle) {
+    // The inline script in <head> already set .checked before paint to
+    // avoid a flash of the wrong theme; this just keeps things in sync
+    // in case that script didn't run for any reason.
+    themeToggle.checked = localStorage.getItem("craverush_theme") === "dark";
+    themeToggle.addEventListener("change", () => {
+      localStorage.setItem("craverush_theme", themeToggle.checked ? "dark" : "light");
+    });
+  }
+
   // Initialize UI Renderers
   renderRestaurants();
   renderDishes();

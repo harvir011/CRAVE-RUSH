@@ -51,6 +51,7 @@
 
       <div class="nav-cta">
         <input type="checkbox" id="theme-toggle" class="theme-toggle-input">
+        <script>document.getElementById("theme-toggle").checked = localStorage.getItem("craverush_theme") === "dark";</script>
         <label for="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
           <i class="fa-solid fa-sun theme-icon theme-icon-sun"></i>
           <i class="fa-solid fa-moon theme-icon theme-icon-moon"></i>
