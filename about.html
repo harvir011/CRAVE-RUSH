@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — CraveRush Food Delivery</title>
+  <meta name="description" content="Learn about CraveRush, our 20-minute delivery guarantee, curated partner restaurants, and culinary mission.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVIGATION HEADER -->
+  <header>
+    <input type="checkbox" id="menu-toggle" style="display:none;">
+    <nav>
+      <a href="index.html" class="logo">CraveRush<span class="dot">.</span></a>
+
+      <div class="location-picker" onclick="openModal('location-modal')">
+        <i class="fa-solid fa-location-dot"></i>
+        <span id="current-location-text">Sector 17, Chandigarh</span>
+        <i class="fa-solid fa-chevron-down" style="font-size:10px; color:var(--muted-4);"></i>
+      </div>
+
+      <div class="nav-search" id="nav-search">
+        <button type="button" class="nav-search-toggle" id="nav-search-toggle" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <div class="nav-search-panel" id="nav-search-panel">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="global-search" placeholder="Search burgers, fries, drinks, desserts..." autocomplete="off">
+          <div id="search-results-dropdown" class="search-results-dropdown"></div>
+        </div>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="restaurants.html">Restaurants</a></li>
+        <li><a href="menu.html">Food Items</a></li>
+        <li><a href="orders.html">Orders</a></li>
+        <li><a href="about.html" class="active">About Us</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <input type="checkbox" id="theme-toggle" class="theme-toggle-input">
+        <label for="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fa-solid fa-sun theme-icon theme-icon-sun"></i>
+          <i class="fa-solid fa-moon theme-icon theme-icon-moon"></i>
+          <span class="theme-toggle-knob"></span>
+        </label>
+
+        <button id="open-cart-btn" class="cart-btn" aria-label="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span id="cart-badge" class="cart-badge">0</span>
+        </button>
+
+        <div id="user-profile-container">
+          <!-- Populated by JS -->
+        </div>
+
+        <a href="menu.html" class="btn btn-solid btn-sm">Order Now</a>
+
+        <label for="menu-toggle" class="burger" aria-label="Open navigation menu">
+          <i class="fa-solid fa-bars"></i>
+        </label>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ABOUT HERO -->
+  <section class="section">
+    <div class="wrap">
+      <div class="about-hero" style="padding-top:40px;">
+        <p class="eyebrow">Our Story &amp; Mission</p>
+        <h1 style="font-size:48px; margin:16px 0 20px;">Redefining Food Delivery with 20-Minute Flash Speed.</h1>
+        <p>CraveRush was founded with a singular promise: to connect food lovers with their favorite restaurant meals piping hot, impossibly fresh, and faster than anyone else.</p>
+      </div>
+
+      <div class="stats-grid" style="margin-top:40px;">
+        <div class="stat-card">
+          <strong>18m</strong>
+          <span>Average Delivery Time</span>
+        </div>
+        <div class="stat-card">
+          <strong>1000+</strong>
+          <span>Verified Kitchen Partners</span>
+        </div>
+        <div class="stat-card">
+          <strong>100k+</strong>
+          <span>Satisfied Customers</span>
+        </div>
+        <div class="stat-card">
+          <strong>4.9★</strong>
+          <span>Average App Rating</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR STORY (SPLIT LAYOUT) -->
+  <section class="section" style="background:var(--card); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="story-split">
+        <div>
+          <p class="eyebrow">How It Started</p>
+          <h2>Three friends, one scooter, and a very impatient appetite.</h2>
+          <p>It started in 2021 with a shared frustration: great restaurant food almost always arrived cold, soggy, or hours late. So we rebuilt delivery from the ground up — our own dispatch engine, our own insulated packaging, and a rider network trained to treat every bag like it's their own dinner.</p>
+          <p>Today CraveRush operates across dozens of neighborhoods and works with over a thousand kitchen partners, but the promise hasn't changed: real food, from real kitchens, at real speed. We hand-pick every restaurant partner, audit their kitchens monthly, and give riders smart routing so your order takes the fastest possible path from stove to doorstep.</p>
+          <p>Whether it's a 2am biryani craving or a Sunday morning coffee run, CraveRush exists to make "hungry" a very short-lived problem.</p>
+        </div>
+        <img class="story-photo" src="https://images.unsplash.com/photo-1526367790999-0150786686a2?w=900&q=80" alt="Chef plating food in a partner kitchen" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20400%20300%27%3E%3Crect%20width%3D%27400%27%20height%3D%27300%27%20fill%3D%27%23FFF7E4%27/%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27125%27%20r%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%23E8A93A%27%20stroke-width%3D%276%27/%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27125%27%20r%3D%2728%27%20fill%3D%27none%27%20stroke%3D%27%23E8A93A%27%20stroke-width%3D%273%27/%3E%3Cline%20x1%3D%27150%27%20y1%3D%27190%27%20x2%3D%27250%27%20y2%3D%27190%27%20stroke%3D%27%23C6432B%27%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27/%3E%3Ctext%20x%3D%27200%27%20y%3D%27230%27%20font-family%3D%27Arial%2C%20sans-serif%27%20font-size%3D%2715%27%20fill%3D%27%236b715e%27%20text-anchor%3D%27middle%27%3EImage%20unavailable%3C/text%3E%3C/svg%3E';">
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION & VISION -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">What Drives Us</p>
+          <h2>Mission &amp; Vision</h2>
+        </div>
+      </div>
+
+      <div class="mv-grid">
+        <div class="mv-card">
+          <div class="mv-icon"><i class="fa-solid fa-bullseye"></i></div>
+          <h3>Our Mission</h3>
+          <p>To make restaurant-quality food accessible within 20 minutes of ordering, anywhere in the city — without compromising on temperature, freshness, or the dignity of the riders and kitchens that make it possible.</p>
+        </div>
+        <div class="mv-card">
+          <div class="mv-icon"><i class="fa-solid fa-eye"></i></div>
+          <h3>Our Vision</h3>
+          <p>A future where "delivery food" and "fresh food" mean the same thing — where every neighborhood has instant access to the city's best kitchens, powered by a fully electric, zero-emission fleet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MILESTONES / TIMELINE -->
+  <section class="section" style="background:var(--card); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head" style="justify-content:center; text-align:center; flex-direction:column; align-items:center;">
+        <p class="eyebrow">Milestones</p>
+        <h2>From one scooter to a citywide network.</h2>
+      </div>
+
+      <div class="milestones-timeline" style="margin-top:40px;">
+        <div class="milestone-item">
+          <span class="milestone-year">2021</span>
+          <h4>CraveRush is founded</h4>
+          <p>Three friends launch CraveRush in Chandigarh with a single scooter, a handful of restaurant partners, and a promise: 20 minutes or your money back.</p>
+        </div>
+        <div class="milestone-item">
+          <span class="milestone-year">2022</span>
+          <h4>Expansion to 5 cities</h4>
+          <p>Smart dispatch routing goes live, cutting average delivery time from 34 minutes to under 20 across every launch city.</p>
+        </div>
+        <div class="milestone-item">
+          <span class="milestone-year">2023</span>
+          <h4>100% electric fleet</h4>
+          <p>CraveRush retires its last combustion-engine scooter, becoming one of the first fully electric food delivery fleets in the region.</p>
+        </div>
+        <div class="milestone-item">
+          <span class="milestone-year">2024</span>
+          <h4>1,000+ kitchen partners</h4>
+          <p>Monthly hygiene and quality audits become mandatory for every partner restaurant, crossing the 1,000-partner mark.</p>
+        </div>
+        <div class="milestone-item">
+          <span class="milestone-year">2025</span>
+          <h4>CravePass membership launches</h4>
+          <p>Free delivery, exclusive discounts, and priority dispatch roll out to CraveRush's most loyal customers.</p>
+        </div>
+        <div class="milestone-item">
+          <span class="milestone-year">2026</span>
+          <h4>100,000+ happy customers</h4>
+          <p>CraveRush crosses 100k satisfied customers and a 4.9★ average rating, with the 20-minute guarantee still going strong.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES SECTION -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Pillars of Excellence</p>
+          <h2>Why CraveRush stands out in every bite.</h2>
+        </div>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon gradient-1"><i class="fa-solid fa-stopwatch"></i></div>
+          <h3>Lightning 20-Min Delivery</h3>
+          <p>Our smart dispatch algorithms route your order to the nearest partner kitchen &amp; closest rider instantly.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon gradient-2"><i class="fa-solid fa-box"></i></div>
+          <h3>Thermal Insulation Pods</h3>
+          <p>Food stays fresh out of the oven. Hot meals stay steaming hot and ice-cold shakes remain frozen.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon gradient-3"><i class="fa-solid fa-leaf"></i></div>
+          <h3>100% Eco Electric Fleet</h3>
+          <p>We are proud to run a zero-emission delivery fleet powered by high-speed electric scooters.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon gradient-4"><i class="fa-solid fa-medal"></i></div>
+          <h3>Quality Checked Kitchens</h3>
+          <p>Every restaurant undergoes monthly hygiene, ingredient quality, and kitchen safety certifications.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM SECTION (LAST CONTENT SECTION) -->
+  <section class="section" style="background:var(--card); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">The People Behind CraveRush</p>
+          <h2>Meet the team on a mission to beat the clock.</h2>
+        </div>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <img class="team-photo" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Arjun Malhotra" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20400%20300%27%3E%3Crect%20width%3D%27400%27%20height%3D%27300%27%20fill%3D%27%23FFF7E4%27/%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27125%27%20r%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%23E8A93A%27%20stroke-width%3D%276%27/%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27125%27%20r%3D%2728%27%20fill%3D%27none%27%20stroke%3D%27%23E8A93A%27%20stroke-width%3D%273%27/%3E%3Cline%20x1%3D%27150%27%20y1%3D%27190%27%20x2%3D%27250%27%20y2%3D%27190%27%20stroke%3D%27%23C6432B%27%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27/%3E%3Ctext%20x%3D%27200%27%20y%3D%27230%27%20font-family%3D%27Arial%2C%20sans-serif%27%20font-size%3D%2715%27%20fill%3D%27%236b715e%27%20text-anchor%3D%27middle%27%3EImage%20unavailable%3C/text%3E%3C/svg%3E';">
+          <div class="team-card-body">
+            <h3>Arjun Malhotra</h3>
+            <span class="team-role">Founder &amp; CEO</span>
+          </div>
+        </div>
+        <div class="team-card">
+          <img class="team-photo" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya Nair" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20400%20300%27%3E%3Crect%20width%3D%27400%27%20height%3D%27300%27%20fill%3D%27%23FFF7E4%27/%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27125%27%20r%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%23E8A93A%27%20stroke-width%3D%276%27/%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27125%27%20r%3D%2728%27%20fill%3D%27none%27%20stroke%3D%27%23E8A93A%27%20stroke-width%3D%273%27/%3E%3Cline%20x1%3D%27150%27%20y1%3D%27190%27%20x2%3D%27250%27%20y2%3D%27190%27%20stroke%3D%27%23C6432B%27%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27/%3E%3Ctext%20x%3D%27200%27%20y%3D%27230%27%20font-family%3D%27Arial%2C%20sans-serif%27%20font-size%3D%2715%27%20fill%3D%27%236b715e%27%20text-anchor%3D%27middle%27%3EImage%20unavailable%3C/text%3E%3C/svg%3E';">
+          <div class="team-card-body">
+            <h3>Priya Nair</h3>
+            <span class="team-role">Head of Culinary Partnerships</span>
+          </div>
+        </div>
+        <div class="team-card">
+          <img class="team-photo" src="https://randomuser.me/api/portraits/men/67.jpg" alt="Rohan Kapoor" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20400%20300%27%3E%3Crect%20width%3D%27400%27%20height%3D%27300%27%20fill%3D%27%23FFF7E4%27/%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27125%27%20r%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%23E8A93A%27%20stroke-width%3D%276%27/%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27125%27%20r%3D%2728%27%20fill%3D%27none%27%20stroke%3D%27%23E8A93A%27%20stroke-width%3D%273%27/%3E%3Cline%20x1%3D%27150%27%20y1%3D%27190%27%20x2%3D%27250%27%20y2%3D%27190%27%20stroke%3D%27%23C6432B%27%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27/%3E%3Ctext%20x%3D%27200%27%20y%3D%27230%27%20font-family%3D%27Arial%2C%20sans-serif%27%20font-size%3D%2715%27%20fill%3D%27%236b715e%27%20text-anchor%3D%27middle%27%3EImage%20unavailable%3C/text%3E%3C/svg%3E';">
+          <div class="team-card-body">
+            <h3>Rohan Kapoor</h3>
+            <span class="team-role">Chief Logistics Officer</span>
+          </div>
+        </div>
+        <div class="team-card">
+          <img class="team-photo" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Simran Kaur" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20400%20300%27%3E%3Crect%20width%3D%27400%27%20height%3D%27300%27%20fill%3D%27%23FFF7E4%27/%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27125%27%20r%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%23E8A93A%27%20stroke-width%3D%276%27/%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27125%27%20r%3D%2728%27%20fill%3D%27none%27%20stroke%3D%27%23E8A93A%27%20stroke-width%3D%273%27/%3E%3Cline%20x1%3D%27150%27%20y1%3D%27190%27%20x2%3D%27250%27%20y2%3D%27190%27%20stroke%3D%27%23C6432B%27%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27/%3E%3Ctext%20x%3D%27200%27%20y%3D%27230%27%20font-family%3D%27Arial%2C%20sans-serif%27%20font-size%3D%2715%27%20fill%3D%27%236b715e%27%20text-anchor%3D%27middle%27%3EImage%20unavailable%3C/text%3E%3C/svg%3E';">
+          <div class="team-card-body">
+            <h3>Simran Kaur</h3>
+            <span class="team-role">Head of Customer Experience</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="section">
+    <div class="wrap">
+      <div class="app-band">
+        <div>
+          <h2>Hungry? Your meal is just 20 minutes away.</h2>
+          <p>Browse top famous restaurants like McDonald's, KFC, Domino's, Subway, Starbucks and more.</p>
+          <div class="app-buttons">
+            <a href="menu.html" class="btn btn-solid" style="background:var(--paper); color:var(--leaf); border:none;">Order Now</a>
+          </div>
+        </div>
+        <div style="font-size:100px; line-height:1;">🍔</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-bottom">
+        <span>© 2026 CraveRush Inc. All rights reserved.</span>
+        <a href="index.html" style="color:var(--chili); font-weight:600;">Back to CraveRush Homepage →</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER (SLIDE-OVER PANEL) -->
+  <div id="cart-drawer-overlay" class="cart-drawer-overlay"></div>
+  <aside id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Food Bag</h3>
+      <button id="close-cart-btn" class="close-btn" aria-label="Close cart"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="cart-body">
+      <div id="cart-empty-state" class="cart-empty-state">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <h4>Your bag is empty</h4>
+        <p style="font-size:13.5px; margin-top:6px;">Add delicious dishes from the menu to satisfy your cravings.</p>
+      </div>
+
+      <div id="cart-items-container">
+        <!-- Rendered dynamically by JS -->
+      </div>
+
+      <div class="coupon-box">
+        <input type="text" id="coupon-code" placeholder="ENTER COUPON (CRAVE50)">
+        <button class="coupon-btn" onclick="applyCoupon()">APPLY</button>
+      </div>
+    </div>
+
+    <div class="cart-footer">
+      <div class="bill-row">
+        <span>Item Subtotal</span>
+        <span id="cart-subtotal">₹0</span>
+      </div>
+      <div class="bill-row discount" id="cart-discount-row" style="display:none;">
+        <span>Promo Discount</span>
+        <span id="cart-discount">-₹0</span>
+      </div>
+      <div class="bill-row">
+        <span>Delivery Fee (20-Min Express)</span>
+        <span>FREE</span>
+      </div>
+      <div class="bill-row">
+        <span>Taxes &amp; Govt Charges (5%)</span>
+        <span>Included</span>
+      </div>
+      <div class="bill-row total">
+        <span>To Pay</span>
+        <span id="cart-total">₹0</span>
+      </div>
+
+      <button class="checkout-btn" onclick="proceedToCheckout()">
+        <span>Proceed to Checkout</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- AUTH MODAL -->
+  <div id="auth-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Welcome to CraveRush</h3>
+        <button class="close-btn" onclick="closeModal('auth-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <!-- Shown when a user is already signed in -->
+        <div id="account-view" class="account-view" style="display:none;">
+          <div class="account-view-header">
+            <div class="account-avatar-lg" id="account-avatar-lg">U</div>
+            <div>
+              <h4 id="account-name">Account</h4>
+              <p class="account-email" id="account-email">—</p>
+            </div>
+          </div>
+
+          <div class="account-tabs">
+            <div class="account-tab active" data-tab="profile" onclick="switchAccountTab('profile')"><i class="fa-regular fa-id-card"></i> Profile</div>
+            <div class="account-tab" data-tab="addresses" onclick="switchAccountTab('addresses')"><i class="fa-solid fa-location-dot"></i> Addresses</div>
+            <div class="account-tab" data-tab="wallet" onclick="switchAccountTab('wallet')"><i class="fa-solid fa-wallet"></i> Wallet</div>
+          </div>
+
+          <div id="account-tab-profile" class="account-tab-panel"></div>
+          <div id="account-tab-addresses" class="account-tab-panel" style="display:none;"></div>
+          <div id="account-tab-wallet" class="account-tab-panel" style="display:none;"></div>
+
+          <button type="button" class="logout-btn" onclick="logoutUser()">
+            <i class="fa-solid fa-right-from-bracket"></i> Log Out
+          </button>
+        </div>
+
+        <div id="auth-forms-wrap">
+          <div class="auth-tabs">
+            <div class="auth-tab active" onclick="switchAuthTab('signin')">Sign In</div>
+            <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
+          </div>
+
+          <form id="signin-form" onsubmit="handleSignIn(event)">
+            <div class="form-group">
+              <label>Email Address or Mobile Number</label>
+              <input type="text" id="signin-email" class="form-control" placeholder="name@domain.com or +91..." required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn btn-solid" style="width:100%; margin-top:10px;">Sign In &amp; Order</button>
+          </form>
+
+          <form id="signup-form" onsubmit="handleSignUp(event)" style="display:none;">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="signup-name" class="form-control" placeholder="e.g. Michelle Sharma" required>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="signup-email" class="form-control" placeholder="name@domain.com" required>
+            </div>
+            <div class="form-group">
+              <label>Mobile Number</label>
+              <input type="tel" id="signup-phone" class="form-control" placeholder="+91 98765 43210" required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" placeholder="Create strong password" required>
+            </div>
+            <button type="submit" class="btn btn-solid" style="width:100%; margin-top:10px;">Create Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCATION SELECTOR MODAL -->
+  <div id="location-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width:500px;">
+      <div class="modal-header">
+        <h3>Select Delivery Location</h3>
+        <button class="close-btn" onclick="closeModal('location-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Type Your Address / Sector</label>
+          <input type="text" id="custom-location-input" class="form-control" placeholder="Enter landmark, sector, or city...">
+        </div>
+        <button class="btn btn-solid" style="width:100%; margin-bottom:20px;" onclick="selectCustomLocation()">Set Delivery Location</button>
+
+        <label style="font-size:13px; font-weight:600; color:var(--muted-3); display:block; margin-bottom:10px;">POPULAR CITIES &amp; SECTORS</label>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div class="dropdown-item" onclick="setLocation('Sector 17, Chandigarh')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Sector 17, Chandigarh</div>
+          <div class="dropdown-item" onclick="setLocation('Connaught Place, New Delhi')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Connaught Place, New Delhi</div>
+          <div class="dropdown-item" onclick="setLocation('Bandra West, Mumbai')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Bandra West, Mumbai</div>
+          <div class="dropdown-item" onclick="setLocation('Indiranagar, Bengaluru')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Indiranagar, Bengaluru</div>
+          <div class="dropdown-item" onclick="setLocation('Cyber City, Gurugram')"><i class="fa-solid fa-location-dot" style="color:var(--chili);"></i> Cyber City, Gurugram</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVE ORDER TRACKING MODAL -->
+  <div id="tracking-modal" class="modal-overlay">
+    <div class="modal-content" id="tracking-modal-content">
+      <!-- Rendered dynamically by JS -->
+    </div>
+  </div>
+
+  <!-- RESTAURANT MENU MODAL -->
+  <div id="restaurant-menu-modal" class="modal-overlay">
+    <div class="modal-content" id="restaurant-menu-content" style="max-width:680px;">
+      <!-- Rendered dynamically by JS -->
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container"></div>
+
+  <!-- Main JavaScript File -->
+  <script src="app.js"></script>
+</body>
+</html>
