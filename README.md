@@ -334,7 +334,7 @@ Building CraveRush helped strengthen practical skills in:
 
 * Responsive web development
 * HTML semantic structure
-* CSS layouts using Flexbox & Grid
+* CSS layouts using Flexbox and Grid
 * JavaScript-based interactions
 * UI/UX design
 * Form validation
