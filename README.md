@@ -300,8 +300,8 @@ CraveRush currently focuses on the **frontend experience**. The project can be e
 * 📍 Real-time order tracking
 * 🚴 Delivery partner dashboard
 * 🔔 Order notifications
-* ⭐ Ratings & reviews
-* 🔎 Advanced search and filtering
+* ⭐ Ratings and reviews
+* 🔎 Advanced searching and filtering
 * 🤖 AI-powered food recommendations
 * 📊 Restaurant/admin dashboard
 
